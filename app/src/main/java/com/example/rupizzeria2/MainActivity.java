@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         goToCart = findViewById(R.id.goToCart);
 
         goToOrder.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+            Intent intent = new Intent(MainActivity.this, PizzaOrderActivity.class);
             startActivity(intent);
         });
 
