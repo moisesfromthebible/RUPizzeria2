@@ -5,4 +5,11 @@
     <string name="app_title">RU Pizzeria</string>
     <string name="pizza_animation">Pizza box animation</string>
 
+
+    <string-array name="pizza_types">
+        <item>Chicago Style</item>
+        <item>New York Style</item>
+
+    </string-array>
+
 </resources>
