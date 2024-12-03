@@ -32,6 +32,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.recyclerview:recyclerview:1.3.0")
     implementation ("com.airbnb.android:lottie:5.2.0")
 
     implementation(libs.appcompat)
