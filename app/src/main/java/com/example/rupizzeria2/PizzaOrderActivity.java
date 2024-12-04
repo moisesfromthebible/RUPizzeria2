@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +32,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
     private RadioGroup sizeGroup;
 
 
+    private String size;
     /**
      * On Create method
      *
@@ -92,6 +94,16 @@ public class PizzaOrderActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String state = parent.getItemAtPosition(position).toString();
                 createPizzaFactory(state);
+
+                if(state.equals("Select Pizza Style"))
+                {
+                    pizzaFactory = null;
+                    pizza = null;
+                    Toast.makeText(PizzaOrderActivity.this, "Select Valid Pizza Style!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    createPizzaFactory(state);
+                }
             }
 
             @Override

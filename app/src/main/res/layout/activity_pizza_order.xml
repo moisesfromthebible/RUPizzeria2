@@ -11,6 +11,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="85dp"
         android:entries="@array/pizza_types"
+        android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
