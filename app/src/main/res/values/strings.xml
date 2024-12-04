@@ -6,10 +6,16 @@
     <string name="pizza_animation">Pizza box animation</string>
 
 
+    <string name="select_pizza_style">Select Pizza Style</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="clear">Clear</string>
+
     <string-array name="pizza_types">
         <item>Chicago Style</item>
         <item>New York Style</item>
-
     </string-array>
 
 </resources>
