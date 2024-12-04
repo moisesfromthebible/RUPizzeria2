@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,7 +27,6 @@ public class PizzaOrderActivity extends AppCompatActivity {
     private Pizza pizza;
 
 
-
     /**
      * On Create method
      *
@@ -40,7 +41,8 @@ public class PizzaOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pizza_order);
 
         createButtonIntents();
-       createSpinnerIntents();
+        createSpinnerIntents();
+        createRadioGroup();
     }
 
     /**
@@ -70,11 +72,17 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                pizzaFactory = null;
+                pizza = null;
             }
         });
     }
 
+    /**
+     * Creates the pizza factory based on user selection
+     *
+     * @param pizzaStyleString Selected pizza style
+     */
     private void createPizzaFactory(String pizzaStyleString){
         pizza = null;
 
@@ -85,5 +93,17 @@ public class PizzaOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates the RadioGroup for the android studio
+     */
+    private void createRadioGroup(){
+        RadioGroup sizeGroup = findViewById(R.id.sizeRadioGroup);
+
+        sizeGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton smallButton = findViewById(R.id.smallButton);
+            RadioButton mediumButton = findViewById(R.id.mediumButton);
+            RadioButton largeButton = findViewById(R.id.largeButton);
+        });
+    }
 
 }
