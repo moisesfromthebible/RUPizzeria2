@@ -26,6 +26,10 @@ public class PizzaOrderActivity extends AppCompatActivity {
     /** Pizza Object */
     private Pizza pizza;
 
+    private Spinner pizzaStyle;
+
+    private RadioGroup sizeGroup;
+
 
     /**
      * On Create method
@@ -50,18 +54,38 @@ public class PizzaOrderActivity extends AppCompatActivity {
      */
     private void createButtonIntents(){
         Button goHome = findViewById(R.id.goHome);
+        Button addToCart = findViewById(R.id.addToCart);
+        Button clear = findViewById(R.id.clear);
 
         goHome.setOnClickListener(v -> {
             Intent intent = new Intent(PizzaOrderActivity.this, MainActivity.class);
             startActivity(intent);
         });
+
+        addToCart.setOnClickListener(v -> {
+            if (validateOptions()){
+                Order newOrder = Order.getInstance();
+                newOrder.addPizza(pizza);
+                Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        clear.setOnClickListener(v -> {
+            sizeGroup.clearCheck();
+            pizzaStyle.setSelection(0);
+        });
+    }
+
+    private boolean validateOptions(){
+        return pizzaStyle.isSelected() && sizeGroup.isSelected();
     }
 
     /**
      * Sets spinner intents
      */
     private void createSpinnerIntents(){
-        Spinner pizzaStyle = findViewById(R.id.pizzaStyle);
+        pizzaStyle = findViewById(R.id.pizzaStyle);
 
         pizzaStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -97,7 +121,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
      * Creates the RadioGroup for the android studio
      */
     private void createRadioGroup(){
-        RadioGroup sizeGroup = findViewById(R.id.sizeRadioGroup);
+        sizeGroup = findViewById(R.id.sizeRadioGroup);
 
         sizeGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton smallButton = findViewById(R.id.smallButton);
