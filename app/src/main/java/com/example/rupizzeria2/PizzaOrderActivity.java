@@ -80,7 +80,19 @@ public class PizzaOrderActivity extends AppCompatActivity {
     }
 
     private boolean validateOptions(){
-        return pizzaStyle.isSelected() && sizeGroup.isSelected();
+
+        if(pizzaStyle.getSelectedItem().toString().equals("Select Pizza Style"))
+        {
+            Toast.makeText(PizzaOrderActivity.this, "Select a valid pizza style!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(sizeGroup.getCheckedRadioButtonId() == -1)
+        {
+            Toast.makeText(PizzaOrderActivity.this, "Select a pizza size!", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+        //return pizzaStyle.isSelected() && sizeGroup.isSelected();
     }
 
     /**
@@ -136,9 +148,25 @@ public class PizzaOrderActivity extends AppCompatActivity {
         sizeGroup = findViewById(R.id.sizeRadioGroup);
 
         sizeGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            RadioButton smallButton = findViewById(R.id.smallButton);
-            RadioButton mediumButton = findViewById(R.id.mediumButton);
-            RadioButton largeButton = findViewById(R.id.largeButton);
+
+            if(checkedId == R.id.smallButton)
+            {
+                size = "Small";
+            }
+            else if(checkedId == R.id.mediumButton)
+            {
+                size = "Medium";
+            }
+            else if(checkedId == R.id.largeButton)
+            {
+                size = "Large";
+            }
+            else {
+                size = null;
+            }
+
+
+
         });
     }
 
