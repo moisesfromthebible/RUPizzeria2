@@ -31,6 +31,8 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
     private RadioGroup sizeGroup;
 
+    private String size;
+
     /**
      * On Create method
      *
