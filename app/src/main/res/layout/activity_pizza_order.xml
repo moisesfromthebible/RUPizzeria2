@@ -125,11 +125,11 @@
         android:text="RU Pizzeria"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="@+id/goHome"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/goHome"
         android:layout_width="87dp"
         android:layout_height="37dp"
         android:text="Home"

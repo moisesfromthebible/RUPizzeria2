@@ -17,12 +17,6 @@ import androidx.core.view.WindowInsetsCompat;
  */
 public class MainActivity extends AppCompatActivity {
 
-    /** Go to order activity button */
-    private Button goToOrder;
-
-    /** Go to cart activity button */
-    private Button goToCart;
-
     /**
      * OnCreate method
      *
@@ -50,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
      * Creates the Intent for the buttons
      */
     private void createButtonIntent(){
-        goToOrder = findViewById(R.id.goToOrder);
-        goToCart = findViewById(R.id.goToCart);
+        Button goToOrder = findViewById(R.id.goToOrder);
+        Button goToCart = findViewById(R.id.goToCart);
 
         goToOrder.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, PizzaOrderActivity.class);
