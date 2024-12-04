@@ -40,8 +40,7 @@
         android:id="@+id/goToOrder"
         android:layout_width="304dp"
         android:layout_height="77dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginBottom="208dp"
         android:backgroundTint="#FB4D61"
         android:text="@string/create_new_order"
         android:textColorLink="#634E9E"
@@ -49,8 +48,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/goToOrder2"
+        android:layout_width="304dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#FB4D61"
+        android:text="@string/orders_placed"
+        android:textColorLink="#634E9E"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/goToCart"
@@ -62,8 +74,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goToOrder"
+        app:layout_constraintVertical_bias="0.13"
         tools:text="@string/view_cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

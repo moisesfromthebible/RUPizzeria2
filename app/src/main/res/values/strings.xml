@@ -2,6 +2,7 @@
     <string name="app_name">RUPizzeria2</string>
     <string name="create_new_order">Create a New Order</string>
     <string name="view_cart">View Cart</string>
+    <string name="orders_placed">Orders Placed</string>
     <string name="app_title">RU Pizzeria</string>
     <string name="pizza_animation">Pizza box animation</string>
 
