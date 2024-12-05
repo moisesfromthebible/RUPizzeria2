@@ -1,6 +1,7 @@
 package com.example.rupizzeria2.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class to represent and manage orders (Singleton pattern).
@@ -56,8 +57,8 @@ public class OrderManager {
      *
      * @return List of all orders
      */
-    public ArrayList<Order> getOrders() {
-        return orders;
+    public List<Order> getOrders() {
+        return orders.subList(0,currentOrder-1);
     }
 
     /**
@@ -69,55 +70,5 @@ public class OrderManager {
 
     public Order getCurrOrder(){
         return orders.get(currentOrder - 1);
-    }
-
-    /**
-     * Nested class to represent an individual order.
-     */
-    public class Order {
-
-        /** List of pizzas in the order */
-        private ArrayList<Pizza> pizzas;
-
-        private int orderNumber;
-
-        public Order(int orderNumber) {
-            this.pizzas = new ArrayList<>();
-            this.orderNumber = orderNumber;
-        }
-
-        /**
-         * Adds a pizza to the order.
-         *
-         * @param pizza Pizza to be added
-         */
-        public void addPizza(Pizza pizza) {
-            pizzas.add(pizza);
-        }
-
-        /**
-         * Removes a pizza from the order.
-         *
-         * @param pizza Pizza to be removed
-         */
-        public void removePizza(Pizza pizza) {
-            pizzas.remove(pizza);
-        }
-
-        /**
-         * Retrieves the list of pizzas in the order.
-         *
-         * @return List of pizzas
-         */
-        public ArrayList<Pizza> getPizzas() {
-            return pizzas;
-        }
-
-        /**
-         * Clears all pizzas from the order.
-         */
-        public void clear() {
-            pizzas.clear();
-        }
     }
 }

@@ -12,7 +12,7 @@ import com.example.rupizzeria2.model.*;
 
 public class CartActivity extends AppCompatActivity {
 
-    private final OrderManager.Order currentOrder = OrderManager.getInstance().getCurrOrder();
+    private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
 
 
     @Override
