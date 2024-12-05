@@ -8,17 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class OrdersPlacedActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders_placed);
 
-        Button goHome = findViewById(R.id.goHome3);
-        goHome.setOnClickListener(v-> {
-            Intent intent = new Intent(OrdersPlacedActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        });
 
     }
 }

@@ -1,5 +1,8 @@
 package com.example.rupizzeria2.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Enum class for toppings
  *
@@ -32,6 +35,24 @@ public enum Topping {
     BLACK_OLIVES,
     /** Spinach enum */
     SPINACH;
+
+    public static List<Topping> getAllToppings(){
+        List<Topping> list = new ArrayList<>();
+        list.add(Topping.SAUSAGE);
+        list.add(Topping.PEPPERONI);
+        list.add(Topping.GREEN_PEPPER);
+        list.add(Topping.ONION);
+        list.add(Topping.MUSHROOM);
+        list.add(Topping.BBQ_CHICKEN);
+        list.add(Topping.PROVOLONE);
+        list.add(Topping.CHEDDAR);
+        list.add(Topping.BEEF);
+        list.add(Topping.HAM);
+        list.add(Topping.SPINACH);
+        list.add(Topping.PINEAPPLE);
+        list.add(Topping.BLACK_OLIVES);
+        return list;
+    }
 
     /**
      * This returns a topping object based on a string
