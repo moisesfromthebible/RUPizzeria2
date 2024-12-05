@@ -92,19 +92,15 @@ public class PizzaOrderActivity extends AppCompatActivity {
                 pizza.setSize(size);
             }
             updatePrice();
-            displayToppings(selectedPizza);
+            displayToppings();
         });
     }
 
     /**
      * Method to display toppings
-     *
-     * @param selectedPizza Pizza
      */
-    private void displayToppings(Pizza selectedPizza) {
-        ListView toppingsListView = findViewById(R.id.toppingsListView);
-
-        if (selectedPizza instanceof BuildYourOwn) {
+    private void displayToppings() {
+        if (pizza instanceof BuildYourOwn) {
             updatePrice();
             List<Topping> allToppings = Topping.getAllToppings();
             ArrayAdapter<Topping> toppingsAdapter = new ArrayAdapter<>(
@@ -117,7 +113,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
             toppingsListView.setAdapter(toppingsAdapter);
 
             for (int i = 0; i < allToppings.size(); i++) {
-                if (selectedPizza.getToppings().contains(allToppings.get(i))) {
+                if (pizza.getToppings().contains(allToppings.get(i))) {
                     toppingsListView.setItemChecked(i, true);
                 }
             }
@@ -125,14 +121,14 @@ public class PizzaOrderActivity extends AppCompatActivity {
             toppingsListView.setOnItemClickListener((parent, view, position, id) -> {
                 Topping selectedTopping = allToppings.get(position);
                 if (toppingsListView.isItemChecked(position)) {
-                    selectedPizza.addTopping(selectedTopping);
+                    pizza.addTopping(selectedTopping);
                 } else {
-                    selectedPizza.removeTopping(selectedTopping);
+                    pizza.removeTopping(selectedTopping);
                 }
                 updatePrice();
             });
         } else {
-            List<Topping> toppings = selectedPizza.getToppings();
+            List<Topping> toppings = pizza.getToppings();
             ArrayAdapter<Topping> toppingsAdapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_list_item_1,
@@ -160,7 +156,6 @@ public class PizzaOrderActivity extends AppCompatActivity {
         addToCart.setOnClickListener(v -> {
             if (validateOptions()){
                 Order newOrder = Order.getInstance();
-                getPizza();
                 pizza.setSize(size);
                 newOrder.addPizza(pizza);
                 Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
@@ -221,31 +216,6 @@ public class PizzaOrderActivity extends AppCompatActivity {
                 updatePrice();
             }
         });
-    }
-
-    /**
-     * Gets pizza from recycler view
-     */
-    private void getPizza(){
-        Pizza singlePizza = pizzaAdapter.getSelectedItem();
-        PizzaFactory factory = singlePizza.getStyle().equals("NY Style") ? NYpizzaFactory : chicagoPizzaFactory;
-
-        switch (singlePizza.getClass().getSimpleName()) {
-            case "BBQChicken":
-                pizza = factory.createBBQChicken();
-                break;
-            case "Deluxe":
-                pizza = factory.createDeluxe();
-                break;
-            case "Meatzza":
-                pizza = factory.createMeatzza();
-                break;
-            case "BuildYourOwn":
-                pizza = factory.createBuildYourOwn();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected pizza type");
-        }
     }
 
     /**

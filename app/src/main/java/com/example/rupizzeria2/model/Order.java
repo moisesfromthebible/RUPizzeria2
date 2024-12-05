@@ -1,6 +1,4 @@
-package com.example.rupizzeria2;
-
-import com.example.rupizzeria2.model.Pizza;
+package com.example.rupizzeria2.model;
 
 import java.util.ArrayList;
 
