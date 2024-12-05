@@ -1,61 +1,43 @@
 package com.example.rupizzeria2.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
- * Class to represent orders (Singleton pattern).
- *
- * @author Moises Cespedes Moreno, Binoy Patel
+ * Nested class to represent an individual order.
  */
 public class Order {
 
-    /** Total number of pizzas */
-    private int number;
-    /** Pizzas in order */
+    /** List of pizzas in the order */
     private ArrayList<Pizza> pizzas;
-    /** Instance of Order */
-    private static Order instance;
+    private int orderNumber;
 
-    private Order() {
-        this.number = 0;
+    public Order(int orderNumber) {
         this.pizzas = new ArrayList<>();
+        this.orderNumber = orderNumber;
     }
 
     /**
-     * Public static method to provide access to the single instance of Order
-     *
-     * @return Singleton instance of Order
-     */
-    public static Order getInstance() {
-        if (instance == null) {
-            instance = new Order();
-        }
-        return instance;
-    }
-
-    /**
-     * Adds pizza to order
+     * Adds a pizza to the order.
      *
      * @param pizza Pizza to be added
      */
     public void addPizza(Pizza pizza) {
         pizzas.add(pizza);
-        number++;
     }
 
     /**
-     * Removes pizza from order
+     * Removes a pizza from the order.
      *
      * @param pizza Pizza to be removed
      */
     public void removePizza(Pizza pizza) {
-        if (number <= 0) return;
         pizzas.remove(pizza);
-        number--;
     }
 
     /**
-     * Getter method for pizzas
+     * Retrieves the list of pizzas in the order.
      *
      * @return List of pizzas
      */
@@ -64,15 +46,17 @@ public class Order {
     }
 
     /**
-     * Clears the order
+     * Clears all pizzas from the order.
      */
-    public void clear() { this.pizzas = new ArrayList<>(); }
+    public void clear() {
+        pizzas.clear();
+    }
 
-    /**
-     * Creates a new Order
-     */
-    public void newOrder() {
-        this.pizzas = new ArrayList<>();
-        this.number++;
+    public int returnNumber(){return orderNumber;}
+
+    @NonNull
+    @Override
+    public String toString(){
+        return String.format("Order Number: %d", orderNumber);
     }
 }

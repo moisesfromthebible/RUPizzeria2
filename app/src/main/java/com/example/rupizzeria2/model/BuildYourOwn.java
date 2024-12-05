@@ -1,5 +1,7 @@
 package com.example.rupizzeria2.model;
 
+import androidx.annotation.NonNull;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -66,6 +68,7 @@ public class BuildYourOwn extends Pizza{
      *
      * @return String with pizza style
      */
+    @NonNull
     @Override
     public String toString(){
         if (getCrust() == Crust.PAN){

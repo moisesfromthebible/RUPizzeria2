@@ -1,5 +1,7 @@
 package com.example.rupizzeria2.model;
 
+import androidx.annotation.NonNull;
+
 /**
  * Enum class for crusts
  *
@@ -24,6 +26,7 @@ public enum Crust {
      *
      * @return String representation
      */
+    @NonNull
     @Override
     public String toString(){
         return name().replace('_', ' ');
