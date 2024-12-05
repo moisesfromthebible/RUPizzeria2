@@ -33,11 +33,25 @@ public abstract class Pizza {
     }
 
     /**
-     * Method to return teh price of the pizza.
+     * Method to return the price of the pizza.
      *
      * @return price (double)
      */
     public abstract double price();
+
+    /**
+     * Method to return the style
+     *
+     * @return Style of the pizza
+     */
+    public abstract String getStyle();
+
+    /**
+     * Method to return name of the pizza
+     *
+     * @return String name of pizza
+     */
+    public abstract String getName();
 
     /**
      * Getter method for toppings

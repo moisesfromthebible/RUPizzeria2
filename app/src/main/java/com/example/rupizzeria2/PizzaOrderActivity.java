@@ -5,14 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rupizzeria2.model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Pizza Order Activity Class
@@ -33,6 +37,10 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
     private String size;
 
+    private RecyclerView pizzaRecyclerView;
+    private PizzaAdapter pizzaAdapter;
+    private List<Pizza> pizzaList;
+
     /**
      * On Create method
      *
@@ -49,6 +57,28 @@ public class PizzaOrderActivity extends AppCompatActivity {
         createButtonIntents();
         createSpinnerIntents();
         createRadioGroup();
+        createRecyclerView();
+    }
+
+    private void createRecyclerView(){
+        pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
+        pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        PizzaFactory NYPizzas = new NYPizza();
+        PizzaFactory ChicagoPizzas = new ChicagoPizza();
+
+        pizzaList = new ArrayList<>();
+        pizzaList.add(NYPizzas.createDeluxe());
+        pizzaList.add(NYPizzas.createBBQChicken());
+        pizzaList.add(NYPizzas.createMeatzza());
+        pizzaList.add(NYPizzas.createBuildYourOwn());
+        pizzaList.add(ChicagoPizzas.createDeluxe());
+        pizzaList.add(ChicagoPizzas.createBBQChicken());
+        pizzaList.add(ChicagoPizzas.createMeatzza());
+        pizzaList.add(ChicagoPizzas.createBuildYourOwn());
+
+        pizzaAdapter = new PizzaAdapter(pizzaList);
+        pizzaRecyclerView.setAdapter(pizzaAdapter);
     }
 
     /**
@@ -149,23 +179,21 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
         sizeGroup.setOnCheckedChangeListener((group, checkedId) -> {
 
-            if(checkedId == R.id.smallButton)
-            {
+            if(checkedId == R.id.smallButton) {
                 size = "Small";
             }
-            else if(checkedId == R.id.mediumButton)
-            {
+
+            else if(checkedId == R.id.mediumButton) {
                 size = "Medium";
             }
-            else if(checkedId == R.id.largeButton)
-            {
+
+            else if(checkedId == R.id.largeButton) {
                 size = "Large";
             }
+
             else {
                 size = null;
             }
-
-
 
         });
     }

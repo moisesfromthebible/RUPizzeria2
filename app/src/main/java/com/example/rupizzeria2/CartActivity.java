@@ -2,7 +2,7 @@ package com.example.rupizzeria2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,12 +11,16 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
+        createButtonIntents();
     }
 
-    public void goToHome(View view)
-    {
-        Intent intent = new Intent(CartActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+    private void createButtonIntents(){
+        Button goHome = findViewById(R.id.goHome2);
+
+        goHome.setOnClickListener(v -> {
+            Intent intent = new Intent(CartActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 }

@@ -35,6 +35,26 @@ public class Meatzza extends Pizza{
     }
 
     /**
+     * Get Style method
+     *
+     * @return String representing style
+     */
+    public String getStyle(){
+        if (getCrust() == Crust.STUFFED){
+            return "Chicago Style ";
+        }else{
+            return "NY Style ";
+        }
+    }
+
+    /**
+     * Returns the name of the pizza
+     *
+     * @return String name of Pizza
+     */
+    public String getName() { return "Meatzza"; }
+
+    /**
      * toString method for Meatzza
      *
      * @return String which adds pizza type

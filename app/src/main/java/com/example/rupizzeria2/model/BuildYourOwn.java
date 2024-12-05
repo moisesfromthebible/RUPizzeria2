@@ -74,4 +74,25 @@ public class BuildYourOwn extends Pizza{
             return "NY Style " + super.toString();
         }
     }
+
+    /**
+     * Get Style method
+     *
+     * @return String representing style
+     */
+    public String getStyle(){
+        if (getCrust() == Crust.PAN){
+            return "Chicago Style ";
+        }else{
+            return "NY Style ";
+        }
+    }
+
+    /**
+     * Returns the name of the pizza
+     *
+     * @return String name of Pizza
+     */
+    public String getName() { return "Build Your Own"; }
+
 }
