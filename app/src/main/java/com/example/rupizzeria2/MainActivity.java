@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void createButtonIntent(){
         Button goToOrder = findViewById(R.id.goToOrder);
         Button goToCart = findViewById(R.id.goToCart);
+        Button goToOrdersPlaced = findViewById(R.id.goToOrdersPlaced);
 
         goToOrder.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, PizzaOrderActivity.class);
@@ -54,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
         goToCart.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
+        });
+
+        goToOrdersPlaced.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, OrdersPlacedActivity.class);
             startActivity(intent);
         });
     }
