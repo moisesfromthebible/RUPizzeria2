@@ -155,8 +155,8 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
         addToCart.setOnClickListener(v -> {
             if (validateOptions()){
-                Order newOrder = Order.getInstance();
                 pizza.setSize(size);
+                OrderManager.Order newOrder = OrderManager.getInstance().getCurrOrder();
                 newOrder.addPizza(pizza);
                 Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
                 startActivity(intent);

@@ -12,7 +12,8 @@ import com.example.rupizzeria2.model.*;
 
 public class CartActivity extends AppCompatActivity {
 
-    private final Order currentOrder = Order.getInstance();
+    private final OrderManager.Order currentOrder = OrderManager.getInstance().getCurrOrder();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +39,11 @@ public class CartActivity extends AppCompatActivity {
         cancelOrder.setOnClickListener(v -> {
             currentOrder.clear();
             Intent intent = new Intent(CartActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         placeOrder.setOnClickListener(v -> {
+            OrderManager.getInstance().createOrder();
             Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
             startActivity(intent);
         });
