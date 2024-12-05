@@ -1,5 +1,7 @@
 package com.example.rupizzeria2.model;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 /**
@@ -59,6 +61,7 @@ public class Meatzza extends Pizza{
      *
      * @return String which adds pizza type
      */
+    @NonNull
     @Override
     public String toString(){
         if (getCrust() == Crust.STUFFED){
