@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/pizzaStyle"
-        android:layout_width="205dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="85dp"
-        android:entries="@array/pizza_types"
-        android:spinnerMode="dropdown"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
@@ -27,32 +17,31 @@
 
     <RadioGroup
         android:id="@+id/sizeRadioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="105dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="42dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pizzaStyle">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
             android:id="@+id/smallButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/small"
-            />
+            android:text="@string/small" />
 
         <RadioButton
             android:id="@+id/mediumButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/medium"
-             />
+            android:text="@string/medium" />
 
         <RadioButton
             android:id="@+id/largeButton"
-            android:layout_width="wrap_content"
+            android:layout_width="92dp"
             android:layout_height="wrap_content"
-            android:text="@string/large"
-             />
+            android:text="@string/large" />
     </RadioGroup>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -64,6 +53,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
+        android:id="@+id/toppingsListView"
         android:layout_width="152dp"
         android:layout_height="446dp"
         android:layout_marginTop="202dp"
@@ -94,8 +84,8 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="73dp"
-        android:layout_height="38dp"
+        android:layout_width="55dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="16dp"
         android:text="Total:"
         android:textSize="20sp"
@@ -121,13 +111,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="81dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="16dp"
+        android:id="@+id/priceTextView"
+        android:layout_width="103dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:inputType="text"
+        android:text="$0.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

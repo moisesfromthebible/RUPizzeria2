@@ -2,11 +2,11 @@ package com.example.rupizzeria2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,21 +25,27 @@ import java.util.List;
  */
 public class PizzaOrderActivity extends AppCompatActivity {
 
-    /** Pizza Factory */
-    private PizzaFactory pizzaFactory;
+    /** NY Pizza Factory */
+    private final static PizzaFactory NYpizzaFactory = new NYPizza();
+
+    /** Chicago Pizza Factory */
+    private final static PizzaFactory chicagoPizzaFactory = new ChicagoPizza();
 
     /** Pizza Object */
     private Pizza pizza;
 
-    private Spinner pizzaStyle;
-
+    /** Size radio group */
     private RadioGroup sizeGroup;
 
-    private String size;
+    /** Size of pizza */
+    private Size size;
 
-    private RecyclerView pizzaRecyclerView;
+    /** Pizza adapter class
+     */
     private PizzaAdapter pizzaAdapter;
-    private List<Pizza> pizzaList;
+
+    /** List view for toppings */
+    private ListView toppingsListView;
 
     /**
      * On Create method
@@ -54,31 +60,88 @@ public class PizzaOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pizza_order);
 
+        toppingsListView = findViewById(R.id.toppingsListView);
         createButtonIntents();
-        createSpinnerIntents();
         createRadioGroup();
         createRecyclerView();
     }
 
-    private void createRecyclerView(){
-        pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
+    /**
+     * Creates the pizza recycler view
+     */
+    private void createRecyclerView() {
+        RecyclerView pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
         pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        PizzaFactory NYPizzas = new NYPizza();
-        PizzaFactory ChicagoPizzas = new ChicagoPizza();
-
-        pizzaList = new ArrayList<>();
-        pizzaList.add(NYPizzas.createDeluxe());
-        pizzaList.add(NYPizzas.createBBQChicken());
-        pizzaList.add(NYPizzas.createMeatzza());
-        pizzaList.add(NYPizzas.createBuildYourOwn());
-        pizzaList.add(ChicagoPizzas.createDeluxe());
-        pizzaList.add(ChicagoPizzas.createBBQChicken());
-        pizzaList.add(ChicagoPizzas.createMeatzza());
-        pizzaList.add(ChicagoPizzas.createBuildYourOwn());
+        List<Pizza> pizzaList = new ArrayList<>();
+        pizzaList.add(NYpizzaFactory.createDeluxe());
+        pizzaList.add(NYpizzaFactory.createBBQChicken());
+        pizzaList.add(NYpizzaFactory.createMeatzza());
+        pizzaList.add(NYpizzaFactory.createBuildYourOwn());
+        pizzaList.add(chicagoPizzaFactory.createDeluxe());
+        pizzaList.add(chicagoPizzaFactory.createBBQChicken());
+        pizzaList.add(chicagoPizzaFactory.createMeatzza());
+        pizzaList.add(chicagoPizzaFactory.createBuildYourOwn());
 
         pizzaAdapter = new PizzaAdapter(pizzaList);
         pizzaRecyclerView.setAdapter(pizzaAdapter);
+
+        pizzaAdapter.setOnPizzaSelectedListener(selectedPizza -> {
+            pizza = selectedPizza;
+            if (size != null) {
+                pizza.setSize(size);
+            }
+            updatePrice();
+            displayToppings(selectedPizza);
+        });
+    }
+
+    /**
+     * Method to display toppings
+     *
+     * @param selectedPizza Pizza
+     */
+    private void displayToppings(Pizza selectedPizza) {
+        ListView toppingsListView = findViewById(R.id.toppingsListView);
+
+        if (selectedPizza instanceof BuildYourOwn) {
+            updatePrice();
+            List<Topping> allToppings = Topping.getAllToppings();
+            ArrayAdapter<Topping> toppingsAdapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_multiple_choice,
+                    allToppings
+            );
+
+            toppingsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            toppingsListView.setAdapter(toppingsAdapter);
+
+            for (int i = 0; i < allToppings.size(); i++) {
+                if (selectedPizza.getToppings().contains(allToppings.get(i))) {
+                    toppingsListView.setItemChecked(i, true);
+                }
+            }
+
+            toppingsListView.setOnItemClickListener((parent, view, position, id) -> {
+                Topping selectedTopping = allToppings.get(position);
+                if (toppingsListView.isItemChecked(position)) {
+                    selectedPizza.addTopping(selectedTopping);
+                } else {
+                    selectedPizza.removeTopping(selectedTopping);
+                }
+                updatePrice();
+            });
+        } else {
+            List<Topping> toppings = selectedPizza.getToppings();
+            ArrayAdapter<Topping> toppingsAdapter = new ArrayAdapter<>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    toppings
+            );
+
+            toppingsListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+            toppingsListView.setAdapter(toppingsAdapter);
+        }
     }
 
     /**
@@ -97,6 +160,8 @@ public class PizzaOrderActivity extends AppCompatActivity {
         addToCart.setOnClickListener(v -> {
             if (validateOptions()){
                 Order newOrder = Order.getInstance();
+                getPizza();
+                pizza.setSize(size);
                 newOrder.addPizza(pizza);
                 Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
                 startActivity(intent);
@@ -105,97 +170,93 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
         clear.setOnClickListener(v -> {
             sizeGroup.clearCheck();
-            pizzaStyle.setSelection(0);
+            size = null;
+
+            pizzaAdapter.clearSelection();
+
+            toppingsListView.setAdapter(null);
+
+            updatePrice();
+            Toast.makeText(PizzaOrderActivity.this, "Selection cleared!", Toast.LENGTH_SHORT).show();
         });
     }
 
+    /**
+     * Validates whether the pizza
+     *
+     * @return True if all needed items are selected
+     */
     private boolean validateOptions(){
-
-        if(pizzaStyle.getSelectedItem().toString().equals("Select Pizza Style"))
-        {
+        if(!pizzaAdapter.isAnyItemSelected()) {
             Toast.makeText(PizzaOrderActivity.this, "Select a valid pizza style!", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(sizeGroup.getCheckedRadioButtonId() == -1)
-        {
+        if(sizeGroup.getCheckedRadioButtonId() == -1) {
             Toast.makeText(PizzaOrderActivity.this, "Select a pizza size!", Toast.LENGTH_SHORT).show();
             return false;
         }
+
         return true;
-        //return pizzaStyle.isSelected() && sizeGroup.isSelected();
-    }
-
-    /**
-     * Sets spinner intents
-     */
-    private void createSpinnerIntents(){
-        pizzaStyle = findViewById(R.id.pizzaStyle);
-
-        pizzaStyle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String state = parent.getItemAtPosition(position).toString();
-                createPizzaFactory(state);
-
-                if(state.equals("Select Pizza Style"))
-                {
-                    pizzaFactory = null;
-                    pizza = null;
-                    Toast.makeText(PizzaOrderActivity.this, "Select Valid Pizza Style!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    createPizzaFactory(state);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                pizzaFactory = null;
-                pizza = null;
-            }
-        });
-    }
-
-    /**
-     * Creates the pizza factory based on user selection
-     *
-     * @param pizzaStyleString Selected pizza style
-     */
-    private void createPizzaFactory(String pizzaStyleString){
-        pizza = null;
-
-        if(pizzaStyleString.equals("New York Style")){
-            pizzaFactory = new NYPizza();
-        }else{
-            pizzaFactory = new ChicagoPizza();
-        }
     }
 
     /**
      * Creates the RadioGroup for the android studio
      */
-    private void createRadioGroup(){
+    private void createRadioGroup() {
         sizeGroup = findViewById(R.id.sizeRadioGroup);
 
         sizeGroup.setOnCheckedChangeListener((group, checkedId) -> {
-
-            if(checkedId == R.id.smallButton) {
-                size = "Small";
-            }
-
-            else if(checkedId == R.id.mediumButton) {
-                size = "Medium";
-            }
-
-            else if(checkedId == R.id.largeButton) {
-                size = "Large";
-            }
-
-            else {
+            if (checkedId == R.id.smallButton) {
+                size = Size.SMALL;
+            } else if (checkedId == R.id.mediumButton) {
+                size = Size.MEDIUM;
+            } else if (checkedId == R.id.largeButton) {
+                size = Size.LARGE;
+            } else {
                 size = null;
             }
 
+            if (pizza != null) {
+                pizza.setSize(size);
+                updatePrice();
+            }
         });
     }
 
+    /**
+     * Gets pizza from recycler view
+     */
+    private void getPizza(){
+        Pizza singlePizza = pizzaAdapter.getSelectedItem();
+        PizzaFactory factory = singlePizza.getStyle().equals("NY Style") ? NYpizzaFactory : chicagoPizzaFactory;
+
+        switch (singlePizza.getClass().getSimpleName()) {
+            case "BBQChicken":
+                pizza = factory.createBBQChicken();
+                break;
+            case "Deluxe":
+                pizza = factory.createDeluxe();
+                break;
+            case "Meatzza":
+                pizza = factory.createMeatzza();
+                break;
+            case "BuildYourOwn":
+                pizza = factory.createBuildYourOwn();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected pizza type");
+        }
+    }
+
+    /**
+     * Updates price
+     */
+    private void updatePrice() {
+        TextView priceTextView = findViewById(R.id.priceTextView);
+
+        if (pizza == null || size == null) { return; }
+
+        double price = pizza.price();
+        priceTextView.setText(String.format("$%.2f", price));
+    }
 }
