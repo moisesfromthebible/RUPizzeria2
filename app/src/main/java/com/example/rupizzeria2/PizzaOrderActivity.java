@@ -2,11 +2,15 @@ package com.example.rupizzeria2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.rupizzeria2.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -60,7 +65,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
         createRecyclerView();
     }
 
-    private void createRecyclerView(){
+    private void createRecyclerView() {
         pizzaRecyclerView = findViewById(R.id.pizzaRecyclerView);
         pizzaRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -77,9 +82,13 @@ public class PizzaOrderActivity extends AppCompatActivity {
         pizzaList.add(ChicagoPizzas.createMeatzza());
         pizzaList.add(ChicagoPizzas.createBuildYourOwn());
 
-        pizzaAdapter = new PizzaAdapter(pizzaList);
+        pizzaAdapter = new PizzaAdapter(pizzaList, selectedPizza -> {
+            selectedPizza.setSize(Size.valueOf(size.toUpperCase()));
+            displayPizzaDetails(selectedPizza);
+        });
         pizzaRecyclerView.setAdapter(pizzaAdapter);
     }
+
 
     /**
      * Sets Button intents
@@ -96,6 +105,10 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
         addToCart.setOnClickListener(v -> {
             if (validateOptions()){
+                if(pizza != null)
+                {
+                    pizza.setSize(Size.valueOf(size.toUpperCase()));
+                }
                 Order newOrder = Order.getInstance();
                 newOrder.addPizza(pizza);
                 Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
@@ -121,8 +134,12 @@ public class PizzaOrderActivity extends AppCompatActivity {
             Toast.makeText(PizzaOrderActivity.this, "Select a pizza size!", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if(pizza != null)
+        {
+            pizza.setSize(Size.valueOf(size.toUpperCase()));
+        }
         return true;
-        //return pizzaStyle.isSelected() && sizeGroup.isSelected();
+
     }
 
     /**
@@ -197,5 +214,57 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
         });
     }
+
+    private void displayPizzaDetails(Pizza pizza) {
+        ListView toppingsListView = findViewById(R.id.toppingsListView);
+        TextView totalPriceTextView = findViewById(R.id.totalPriceTextView);
+
+        if (pizza.getSize() == null && size != null) {
+            pizza.setSize(Size.valueOf(size.toUpperCase()));
+        }
+
+        if (pizza.getName().equals("Build Your Own")) {
+            List<String> availableToppings = Arrays.asList(
+                    "Sausage", "Pepperoni", "Green Pepper", "Onion", "Mushroom", "BBQ Chicken", "Beef",
+                    "Ham", "Provolone", "Cheddar", "Spinach", "Black Olives", "Pineapple"
+            );
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, availableToppings);
+            toppingsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+            toppingsListView.setAdapter(adapter);
+
+            toppingsListView.setOnItemClickListener((parent, view, position, id) -> {
+                String selectedTopping = availableToppings.get(position);
+                Topping topping = Topping.getTopping(selectedTopping);
+                if (pizza.getToppings().contains(topping)) {
+                    pizza.getToppings().remove(topping);
+                } else {
+                    if (pizza.getToppings().size() < 7) {
+                        pizza.getToppings().add(topping);
+                    } else {
+                        Toast.makeText(this, "Max 7 toppings!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                totalPriceTextView.setText(String.format("$%.2f", pizza.price()));
+            });
+        } else {
+            List<String> toppingStrings = new ArrayList<>();
+            for (Topping topping : pizza.getToppings()) {
+                toppingStrings.add(topping.toString());
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                    this, android.R.layout.simple_list_item_1, toppingStrings
+            );
+            toppingsListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
+            toppingsListView.setAdapter(adapter);
+        }
+
+        if (pizza.getSize() != null) {
+            totalPriceTextView.setText(String.format("$%.2f", pizza.price()));
+        } else {
+            totalPriceTextView.setText("Select Size");
+        }
+    }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.rupizzeria2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,12 @@ import java.util.List;
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
 
     private List<Pizza> pizzaList;
+    private PizzaSelectionListener listener;
 
-    public PizzaAdapter(List<Pizza> pizzaList) {
+    public PizzaAdapter(List<Pizza> pizzaList, PizzaSelectionListener listener)
+    {
         this.pizzaList = pizzaList;
+        this.listener = listener;
     }
 
     @Override
@@ -30,6 +34,17 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         Pizza pizza = pizzaList.get(position);
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaStyle.setText(pizza.getStyle());
+
+        holder.itemView.setOnClickListener(v ->{
+            if(listener != null)
+            {
+                listener.onPizzaClick(pizza);
+            }
+        });
+    }
+    public interface PizzaSelectionListener
+    {
+        void onPizzaClick(Pizza pizza);
     }
 
     @Override
