@@ -38,6 +38,11 @@ public enum Topping {
     /** Spinach enum */
     SPINACH;
 
+    /**
+     * Returns list of toppings
+     *
+     * @return List of toppings
+     */
     public static List<Topping> getAllToppings(){
         List<Topping> list = new ArrayList<>();
         list.add(Topping.SAUSAGE);
