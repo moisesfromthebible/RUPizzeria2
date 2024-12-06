@@ -23,6 +23,7 @@ public class CartActivity extends AppCompatActivity {
     /** Current order in cart */
     private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
 
+    private static int orderNumber = 1;
 
     /**
      * onCreate method for cartActivity
@@ -36,6 +37,8 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        TextView orderNumberText = findViewById(R.id.orderNumberText);
+        orderNumberText.setText("Order #: " + orderNumber);
         createButtonIntents();
         loadListView();
         setPrices();
@@ -80,6 +83,7 @@ public class CartActivity extends AppCompatActivity {
                     .setMessage("Your order has been placed successfully.")
                     .setPositiveButton("OK", (dialog, which) -> {
                         OrderManager.getInstance().createOrder();
+                        orderNumber++;
                         Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
                         startActivity(intent);
                     })

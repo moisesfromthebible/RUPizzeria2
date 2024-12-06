@@ -19,6 +19,7 @@
     <string name="subtotal">Subtotal</string>
     <string name="sales_tax">Sales Tax</string>
     <string name="order_total">Order Total</string>
+    <string name="order_number">Order #: </string>
     <string name="cancel_order">Cancel Order</string>
     <string name="remove_pizza">Remove Pizza</string>
     <string name="place_order">Place Order</string>
