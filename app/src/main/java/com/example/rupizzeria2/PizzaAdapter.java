@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rupizzeria2.model.Pizza;
@@ -66,8 +67,12 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         Pizza pizza = pizzaList.get(position);
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaStyle.setText(pizza.getStyle());
+        holder.pizzaCrust.setText(pizza.getCrust().toString());
         String pizzaName = pizza.getName().toLowerCase();
         String pizzaStyle = pizza.getStyle().toLowerCase();
+
+        holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(),
+                position==selectedPosition ? R.color.selected_item_color : android.R.color.transparent));
 
         if(pizzaName.contains("deluxe") && pizzaStyle.contains("chicago style")){
             holder.pizzaImage.setImageResource(R.drawable.deluxe_chicago_style);
@@ -88,7 +93,6 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         } else {
             holder.pizzaImage.setImageResource(R.drawable.ic_launcher_background);
         }
-
         holder.itemView.setSelected(position == selectedPosition);
         holder.itemView.setOnClickListener(v -> {
             selectedPosition = position;
@@ -115,7 +119,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
      * and handles the item selection UI changes.
      */
     public static class PizzaViewHolder extends RecyclerView.ViewHolder {
-        TextView pizzaName, pizzaStyle;
+        TextView pizzaName, pizzaStyle, pizzaCrust;
         ImageView pizzaImage;
 
         public PizzaViewHolder(View itemView) {
@@ -123,6 +127,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             pizzaName = itemView.findViewById(R.id.pizzaName);
             pizzaStyle = itemView.findViewById(R.id.pizzaStyle2);
             pizzaImage = itemView.findViewById(R.id.pizzaImage);
+            pizzaCrust = itemView.findViewById(R.id.pizzaCrust);
         }
     }
 
