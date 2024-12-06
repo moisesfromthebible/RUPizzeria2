@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rupizzeria2.model.*;
@@ -59,9 +60,16 @@ public class CartActivity extends AppCompatActivity {
         });
 
         placeOrder.setOnClickListener(v -> {
-            OrderManager.getInstance().createOrder();
-            Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
-            startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+            builder.setTitle("Success")
+                    .setMessage("Your order has been placed successfully.")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        OrderManager.getInstance().createOrder();
+                        Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
+                        startActivity(intent);
+                    })
+                    .setCancelable(false)
+                    .show();
         });
     }
 

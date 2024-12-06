@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rupizzeria2.model.Order;
@@ -100,11 +101,21 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         Button goHome3 = findViewById(R.id.goHome3);
 
         cancelOrder2.setOnClickListener(v -> {
-            Order selectedOrder = (Order) spinner.getSelectedItem();
-            if (selectedOrder != null) {
-                orderManager.removeOrder(selectedOrder);
-                createSpinner();
-            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(OrdersPlacedActivity.this);
+            builder.setTitle("Confirm Cancellation")
+                    .setMessage("Are you sure you want to cancel this order?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        Order selectedOrder = (Order) spinner.getSelectedItem();
+                        if (selectedOrder != null) {
+                            orderManager.removeOrder(selectedOrder);
+                            createSpinner();
+                        }
+                    })
+                    .setNegativeButton("No", (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setCancelable(false)
+                    .show();
         });
 
         goHome3.setOnClickListener(v -> {

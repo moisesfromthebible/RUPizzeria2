@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -154,12 +155,20 @@ public class PizzaOrderActivity extends AppCompatActivity {
         });
 
         addToCart.setOnClickListener(v -> {
-            if (validateOptions()){
+            if (validateOptions()) {
                 pizza.setSize(size);
                 Order newOrder = OrderManager.getInstance().getCurrOrder();
                 newOrder.addPizza(pizza);
-                Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
-                startActivity(intent);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(PizzaOrderActivity.this);
+                builder.setTitle("Success")
+                        .setMessage("Pizza added to cart.")
+                        .setPositiveButton("OK", (dialog, which) -> {
+                            Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
+                            startActivity(intent);
+                        })
+                        .setCancelable(false)
+                        .show();
             }
         });
 
