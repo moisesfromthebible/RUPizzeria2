@@ -15,6 +15,8 @@ public class OrderManager {
 
     private static int currentOrder = 0;
 
+    private static int size = 0;
+
     private OrderManager() {
         this.orders = new ArrayList<>();
     }
@@ -40,6 +42,7 @@ public class OrderManager {
     public Order createOrder() {
         Order newOrder = new Order(currentOrder++);
         orders.add(newOrder);
+        size++;
         return newOrder;
     }
 
@@ -58,7 +61,7 @@ public class OrderManager {
      * @return List of all orders
      */
     public List<Order> getOrders() {
-        return orders.subList(0,currentOrder-1);
+        return orders.subList(0, size-1);
     }
 
     /**
