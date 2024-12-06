@@ -118,7 +118,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
      * ViewHolder for a pizza item. This class holds the views that display the pizza's name and style
      * and handles the item selection UI changes.
      */
-    public static class PizzaViewHolder extends RecyclerView.ViewHolder {
+    static class PizzaViewHolder extends RecyclerView.ViewHolder {
         TextView pizzaName, pizzaStyle, pizzaCrust;
         ImageView pizzaImage;
 
@@ -162,7 +162,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     }
 
     public void clearSelection() {
-        selectedPosition = -1; // Reset selection
-        notifyDataSetChanged(); // Refresh the RecyclerView to reflect no selection
+        selectedPosition = -1;
+        notifyDataSetChanged();
     }
 }
