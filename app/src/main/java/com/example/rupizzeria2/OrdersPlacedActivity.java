@@ -64,7 +64,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
             spinner.setAdapter(null);
             updateListView(null);
             TextView price = findViewById(R.id.price);
-            price.setText("$0.00");
+            price.setText(getString(R.string.total_zero));
             return;
         }
 
@@ -83,7 +83,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
                 updateListView(selectedOrder);
                 TextView price = findViewById(R.id.price);
                 double subtotal = getSubtotal(selectedOrder);
-                price.setText(String.format("$%.2f", subtotal * 1.0625));
+                price.setText(String.format("$%.2f", subtotal * 1.06625));
             }
 
             @Override
@@ -111,9 +111,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
                             createSpinner();
                         }
                     })
-                    .setNegativeButton("No", (dialog, which) -> {
-                        dialog.dismiss();
-                    })
+                    .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                     .setCancelable(false)
                     .show();
         });
@@ -137,7 +135,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
 
         ArrayAdapter<Pizza> pizzaAdapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_list_item_multiple_choice,
+                android.R.layout.simple_list_item_1,
                 pizzas
         );
         ordersListView.setAdapter(pizzaAdapter);
