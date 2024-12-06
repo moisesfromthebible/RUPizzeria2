@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,7 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
         createButtonIntents();
         loadListView();
+        setPrices();
     }
 
     /**
@@ -61,5 +63,29 @@ public class CartActivity extends AppCompatActivity {
         pizzaListView.setAdapter(toppingsAdapter);
     }
 
+    private void setPrices(){
+        TextView subtotalText = findViewById(R.id.subtotal);
+        TextView salesTaxText = findViewById(R.id.salesTax);
+        TextView orderTotalText = findViewById(R.id.orderTotal);
+
+        double subtotal = getSubtotal();
+
+        subtotalText.setText(String.format("Subtotal $%.2f", subtotal));
+        salesTaxText.setText(String.format("Sales Tax $%.2f", subtotal * 0.0625));
+        orderTotalText.setText(String.format("Order total $%.2f", subtotal * 1.0625));
+    }
+
+    /**
+     * Calculates the subtotal of the current order by summing the prices of all pizzas.
+     *
+     * @return The total price of all pizzas in the order before tax.
+     */
+    private double getSubtotal(){
+        double subtotal = 0;
+        for (Pizza pizza : currentOrder.getPizzas()){
+            subtotal += pizza.price();
+        }
+        return subtotal;
+    }
 
 }

@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,17 +46,18 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        // Set a listener to update the ListView when an order is selected
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Order selectedOrder = (Order) spinner.getSelectedItem();
                 updateListView(selectedOrder);
+                TextView price = findViewById(R.id.price);
+                double subtotal = getSubtotal(selectedOrder);
+                price.setText(String.format("$%.2f", subtotal * 1.0625));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Clear the ListView if nothing is selected
                 updateListView(null);
             }
         });
@@ -91,5 +93,19 @@ public class OrdersPlacedActivity extends AppCompatActivity {
                 pizzas
         );
         ordersListView.setAdapter(pizzaAdapter);
+    }
+
+
+    /**
+     * Calculates the subtotal of the current order by summing the prices of all pizzas.
+     *
+     * @return The total price of all pizzas in the order before tax.
+     */
+    private double getSubtotal(Order currentOrder){
+        double subtotal = 0;
+        for (Pizza pizza : currentOrder.getPizzas()){
+            subtotal += pizza.price();
+        }
+        return subtotal;
     }
 }
