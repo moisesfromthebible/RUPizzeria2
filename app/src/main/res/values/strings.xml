@@ -14,6 +14,23 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="clear">Clear</string>
 
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="sales_tax">Sales Tax</string>
+    <string name="order_total">Order Total</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="place_order">Place Order</string>
+    <string name="order_placed_tax">Order Total (with tax)</string>
+    <string name="rupizzeria">RU Pizzeria</string>
+    <string name="toppings">Toppings</string>
+    <string name="total">Total:</string>
+    <string name="total_zero">$0.00</string>
+    <string name="pizza_image">Pizza Image</string>
+    <string name="pizza_name">Pizza Name</string>
+    <string name="pizza_style">Pizza Style</string>
+    <string name="crust_type">Crust Type</string>
+
     <string-array name="pizza_types">
         <item>Select Pizza Style</item>
         <item>Chicago Style</item>

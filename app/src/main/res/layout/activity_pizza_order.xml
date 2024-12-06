@@ -14,7 +14,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/red"
-        android:text="Home"
+        android:text="@string/home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RU Pizzeria"
+        android:text="@string/rupizzeria"
         android:textSize="34sp"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Toppings"
+            android:text="@string/toppings"
             android:textStyle="bold"
             android:textSize="18sp"/>
 
@@ -110,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Total:"
+            android:text="@string/total"
             android:textSize="20sp" />
 
         <EditText
@@ -121,7 +121,7 @@
             android:ems="10"
             android:enabled="false"
             android:inputType="text"
-            android:text="$0.00"
+            android:text="@string/total_zero"
             android:textAlignment="center" />
 
         <Button
