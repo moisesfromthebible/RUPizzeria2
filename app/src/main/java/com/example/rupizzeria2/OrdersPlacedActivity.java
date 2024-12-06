@@ -38,10 +38,20 @@ public class OrdersPlacedActivity extends AppCompatActivity {
     }
 
     private void createSpinner() {
+        List<Order> orders = orderManager.getOrders();
+
+        if (orders == null || orders.isEmpty()) {
+            spinner.setAdapter(null);
+            updateListView(null);
+            TextView price = findViewById(R.id.price);
+            price.setText("$0.00");
+            return;
+        }
+
         ArrayAdapter<Order> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
-                orderManager.getOrders()
+                orders
         );
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -84,7 +94,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
     private void updateListView(Order selectedOrder) {
         List<Pizza> pizzas = new ArrayList<>();
         if (selectedOrder != null) {
-            pizzas = selectedOrder.getPizzas(); // Assume getPizzas() returns a List<Pizza>
+            pizzas = selectedOrder.getPizzas();
         }
 
         ArrayAdapter<Pizza> pizzaAdapter = new ArrayAdapter<>(
