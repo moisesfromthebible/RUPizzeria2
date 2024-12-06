@@ -171,7 +171,8 @@ public class PizzaOrderActivity extends AppCompatActivity {
 
             toppingsListView.setAdapter(null);
 
-            updatePrice();
+            TextView priceTextView = findViewById(R.id.priceTextView);
+            priceTextView.setText("$0.00");
             Toast.makeText(PizzaOrderActivity.this, "Selection cleared!", Toast.LENGTH_SHORT).show();
         });
     }
