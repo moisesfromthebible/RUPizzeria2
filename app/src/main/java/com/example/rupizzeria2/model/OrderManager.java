@@ -53,6 +53,7 @@ public class OrderManager {
      */
     public void removeOrder(Order order) {
         orders.remove(order);
+        size--;
     }
 
     /**
@@ -72,6 +73,6 @@ public class OrderManager {
     }
 
     public Order getCurrOrder(){
-        return orders.get(currentOrder - 1);
+        return orders.get(size-1);
     }
 }

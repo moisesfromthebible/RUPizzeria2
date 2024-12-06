@@ -69,7 +69,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
             Order selectedOrder = (Order) spinner.getSelectedItem();
             if (selectedOrder != null) {
                 orderManager.removeOrder(selectedOrder);
-                createSpinner(); // Refresh spinner after removing the order
+                createSpinner();
             }
         });
 
