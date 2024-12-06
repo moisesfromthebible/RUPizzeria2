@@ -133,11 +133,8 @@ public class OrdersPlacedActivity extends AppCompatActivity {
             pizzas = selectedOrder.getPizzas();
         }
 
-        ArrayAdapter<Pizza> pizzaAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                pizzas
-        );
+        PizzaAdapter2 pizzaAdapter = new PizzaAdapter2(this, pizzas);
+
         ordersListView.setAdapter(pizzaAdapter);
     }
 
