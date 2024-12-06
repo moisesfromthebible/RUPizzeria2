@@ -95,9 +95,6 @@ public class PizzaOrderActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Method to display toppings
-     */
     private void displayToppings() {
         if (pizza instanceof BuildYourOwn) {
             updatePrice();
@@ -116,16 +113,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
                     toppingsListView.setItemChecked(i, true);
                 }
             }
-
-            toppingsListView.setOnItemClickListener((parent, view, position, id) -> {
-                Topping selectedTopping = allToppings.get(position);
-                if (toppingsListView.isItemChecked(position)) {
-                    pizza.addTopping(selectedTopping);
-                } else {
-                    pizza.removeTopping(selectedTopping);
-                }
-                updatePrice();
-            });
+            toppingsListView.setOnItemClickListener((parent, view, position, id) -> listViewListener(allToppings, position));
         } else {
             List<Topping> toppings = pizza.getToppings();
             ArrayAdapter<Topping> toppingsAdapter = new ArrayAdapter<>(
@@ -133,10 +121,25 @@ public class PizzaOrderActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_1,
                     toppings
             );
-
             toppingsListView.setChoiceMode(ListView.CHOICE_MODE_NONE);
             toppingsListView.setAdapter(toppingsAdapter);
         }
+    }
+
+    private void listViewListener(List<Topping> allToppings, int position){
+        Topping selectedTopping = allToppings.get(position);
+
+        if (toppingsListView.isItemChecked(position)) {
+            if (pizza.getToppings().size() >= 7) {
+                Toast.makeText(PizzaOrderActivity.this, "You can only add up to 7 toppings!", Toast.LENGTH_SHORT).show();
+                toppingsListView.setItemChecked(position, false);
+                return;
+            }
+            pizza.addTopping(selectedTopping);
+        } else {
+            pizza.removeTopping(selectedTopping);
+        }
+        updatePrice();
     }
 
     /**

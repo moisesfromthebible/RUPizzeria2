@@ -113,16 +113,9 @@ public class CartActivity extends AppCompatActivity {
      */
     private void loadListView(){
         ListView pizzaListView = findViewById(R.id.pizzaListView);
-
+        PizzaAdapter2 pizzaAdapter = new PizzaAdapter2(this, currentOrder.getPizzas());
+        pizzaListView.setAdapter(pizzaAdapter);
         pizzaListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-        ArrayAdapter<Pizza> toppingsAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                currentOrder.getPizzas()
-        );
-
-        pizzaListView.setAdapter(toppingsAdapter);
     }
 
     /**
