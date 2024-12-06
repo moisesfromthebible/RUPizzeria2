@@ -63,47 +63,33 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
      */
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
-
         Pizza pizza = pizzaList.get(position);
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaStyle.setText(pizza.getStyle());
+        String pizzaName = pizza.getName().toLowerCase();
+        String pizzaStyle = pizza.getStyle().toLowerCase();
 
-        switch (pizza.getName().toLowerCase())
-        {
-            case "deluxe_chicago style":
-                holder.pizzaImage.setImageResource(R.drawable.deluxe_chicago_style);
-                break;
-            case "bbq chicken_chicago style":
-                holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_chicago_style);
-                break;
-            case "meatzza_chicago style":
-                holder.pizzaImage.setImageResource(R.drawable.meatzza_chicago_style);
-                break;
-            case "build your own_chicago style":
-                holder.pizzaImage.setImageResource(R.drawable.build_your_own_chicago_style);
-                break;
-            case "deluxe_ny style":
-                holder.pizzaImage.setImageResource(R.drawable.deluxe_ny_style);
-                break;
-            case "bbq chicken_ny style":
-                holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_ny_style);
-                break;
-            case "meatzza_ny style":
-                holder.pizzaImage.setImageResource(R.drawable.meatzza_ny_style);
-                break;
-            case "build your own_ny style":
-                holder.pizzaImage.setImageResource(R.drawable.build_your_own_ny_style);
-                break;
-
-            default:
-                holder.pizzaImage.setImageResource(R.drawable.ic_launcher_background);
-                break;
-
+        if(pizzaName.contains("deluxe") && pizzaStyle.contains("chicago style")){
+            holder.pizzaImage.setImageResource(R.drawable.deluxe_chicago_style);
+        }else if(pizzaName.contains("deluxe") && pizzaStyle.contains("ny style")){
+            holder.pizzaImage.setImageResource(R.drawable.deluxe_ny_style);
+        }else if(pizzaName.contains("bbq") && pizzaStyle.contains("chicago style")){
+            holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_chicago_style);
+        }else if(pizzaName.contains("bbq") && pizzaStyle.contains("ny style")){
+            holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_ny_style);
+        }else if(pizzaName.contains("meatzza") && pizzaStyle.contains("chicago style")){
+            holder.pizzaImage.setImageResource(R.drawable.meatzza_chicago_style);
+        }else if(pizzaName.contains("meatzza") && pizzaStyle.contains("ny style")){
+            holder.pizzaImage.setImageResource(R.drawable.meatzza_ny_style);
+        }else if(pizzaName.contains("build your own") && pizzaStyle.contains("chicago style")){
+            holder.pizzaImage.setImageResource(R.drawable.build_your_own_chicago_style);
+        }else if(pizzaName.contains("build your own") && pizzaStyle.contains("ny style")){
+            holder.pizzaImage.setImageResource(R.drawable.build_your_own_ny_style);
+        } else {
+            holder.pizzaImage.setImageResource(R.drawable.ic_launcher_background);
         }
 
-
         holder.itemView.setSelected(position == selectedPosition);
-
         holder.itemView.setOnClickListener(v -> {
             selectedPosition = position;
             notifyDataSetChanged();

@@ -19,9 +19,9 @@
             android:id="@+id/pizzaImage"
             android:layout_width="match_parent"
             android:layout_height="120dp"
+            android:contentDescription="Pizza Image"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"
-            android:contentDescription="Pizza Image"/>
+            android:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/pizzaName"
