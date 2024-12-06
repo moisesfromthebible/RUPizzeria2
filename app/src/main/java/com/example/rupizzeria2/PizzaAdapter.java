@@ -3,6 +3,7 @@ package com.example.rupizzeria2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,9 +63,44 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
      */
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
+
         Pizza pizza = pizzaList.get(position);
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaStyle.setText(pizza.getStyle());
+
+        switch (pizza.getName().toLowerCase())
+        {
+            case "deluxe_chicago style":
+                holder.pizzaImage.setImageResource(R.drawable.deluxe_chicago_style);
+                break;
+            case "bbq chicken_chicago style":
+                holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_chicago_style);
+                break;
+            case "meatzza_chicago style":
+                holder.pizzaImage.setImageResource(R.drawable.meatzza_chicago_style);
+                break;
+            case "build your own_chicago style":
+                holder.pizzaImage.setImageResource(R.drawable.build_your_own_chicago_style);
+                break;
+            case "deluxe_ny style":
+                holder.pizzaImage.setImageResource(R.drawable.deluxe_ny_style);
+                break;
+            case "bbq chicken_ny style":
+                holder.pizzaImage.setImageResource(R.drawable.bbq_chicken_ny_style);
+                break;
+            case "meatzza_ny style":
+                holder.pizzaImage.setImageResource(R.drawable.meatzza_ny_style);
+                break;
+            case "build your own_ny style":
+                holder.pizzaImage.setImageResource(R.drawable.build_your_own_ny_style);
+                break;
+
+            default:
+                holder.pizzaImage.setImageResource(R.drawable.ic_launcher_background);
+                break;
+
+        }
+
 
         holder.itemView.setSelected(position == selectedPosition);
 
@@ -94,11 +130,13 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
      */
     public static class PizzaViewHolder extends RecyclerView.ViewHolder {
         TextView pizzaName, pizzaStyle;
+        ImageView pizzaImage;
 
         public PizzaViewHolder(View itemView) {
             super(itemView);
             pizzaName = itemView.findViewById(R.id.pizzaName);
             pizzaStyle = itemView.findViewById(R.id.pizzaStyle2);
+            pizzaImage = itemView.findViewById(R.id.pizzaImage);
         }
     }
 
