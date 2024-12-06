@@ -61,43 +61,47 @@ public class CartActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        placeOrder.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+        placeOrder.setOnClickListener(v -> placeOrderFunction());
 
-            if (currentOrder.getPizzas().isEmpty()) {
-                builder.setTitle("Error")
-                        .setMessage("Your cart is empty. Please add pizzas to place an order.")
-                        .setPositiveButton("OK", null)
-                        .setCancelable(true)
-                        .show();
-            } else {
-                builder.setTitle("Success")
-                        .setMessage("Your order has been placed successfully.")
-                        .setPositiveButton("OK", (dialog, which) -> {
-                            OrderManager.getInstance().createOrder();
-                            Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
-                            startActivity(intent);
-                        })
-                        .setCancelable(false)
-                        .show();
-            }
-        });
+        removePizza.setOnClickListener(v -> removePizzaFunction());
+    }
 
-        removePizza.setOnClickListener(v -> {
-            ListView pizzaListView = findViewById(R.id.pizzaListView);
-            int selectedPosition = pizzaListView.getCheckedItemPosition();
+    private void placeOrderFunction(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
 
-            if (currentOrder.getPizzas().isEmpty()) {
-                Toast.makeText(this, "The cart is empty. Nothing to remove.", Toast.LENGTH_SHORT).show();
-            } else if (selectedPosition < 0) {
-                Toast.makeText(this, "Please select a pizza to remove.", Toast.LENGTH_SHORT).show();
-            } else {
-                currentOrder.getPizzas().remove(selectedPosition);
-                ((ArrayAdapter<?>) pizzaListView.getAdapter()).notifyDataSetChanged();
-                setPrices();
-                Toast.makeText(this, "Pizza removed.", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (currentOrder.getPizzas().isEmpty()) {
+            builder.setTitle("Error")
+                    .setMessage("Your cart is empty. Please add pizzas to place an order.")
+                    .setPositiveButton("OK", null)
+                    .setCancelable(true)
+                    .show();
+        } else {
+            builder.setTitle("Success")
+                    .setMessage("Your order has been placed successfully.")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        OrderManager.getInstance().createOrder();
+                        Intent intent = new Intent(CartActivity.this, OrdersPlacedActivity.class);
+                        startActivity(intent);
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
+    }
+
+    private void removePizzaFunction(){
+        ListView pizzaListView = findViewById(R.id.pizzaListView);
+        int selectedPosition = pizzaListView.getCheckedItemPosition();
+
+        if (currentOrder.getPizzas().isEmpty()) {
+            Toast.makeText(this, "The cart is empty. Nothing to remove.", Toast.LENGTH_SHORT).show();
+        } else if (selectedPosition < 0) {
+            Toast.makeText(this, "Please select a pizza to remove.", Toast.LENGTH_SHORT).show();
+        } else {
+            currentOrder.getPizzas().remove(selectedPosition);
+            ((ArrayAdapter<?>) pizzaListView.getAdapter()).notifyDataSetChanged();
+            setPrices();
+            Toast.makeText(this, "Pizza removed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
