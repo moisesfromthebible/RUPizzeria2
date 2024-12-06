@@ -15,7 +15,7 @@ public class OrderManager {
     private static OrderManager instance;
 
     /** Current order number */
-    private static int currentOrder = 0;
+    private static int currentOrder = 1;
 
     /** Size of list */
     private static int size = 0;

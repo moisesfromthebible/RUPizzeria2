@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import com.example.rupizzeria2.model.Pizza;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
 
     public void setSelectedPosition(int position) {
         selectedPosition = position;
+        notifyDataSetChanged(); // Refresh the ListView when the selected position changes
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -56,28 +58,42 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
         TextView pizzaToppings = convertView.findViewById(R.id.pizzaToppings);
         pizzaToppings.setText(TextUtils.join(", ", pizza.getToppings()));
 
+        // Highlight selected item by changing its background color
+        if (position == selectedPosition) {
+            convertView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_item_color)); // Define your color in resources
+        } else {
+            convertView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
+        }
+
         return convertView;
     }
 
     private int getImageResId(String pizzaName, String pizzaStyle){
         if(pizzaName.contains("deluxe") && pizzaStyle.contains("chicago style")){
             return (R.drawable.deluxe_chicago_style);
-        }else if(pizzaName.contains("deluxe") && pizzaStyle.contains("ny style")){
+        } else if(pizzaName.contains("deluxe") && pizzaStyle.contains("ny style")){
             return (R.drawable.deluxe_ny_style);
-        }else if(pizzaName.contains("bbq") && pizzaStyle.contains("chicago style ")){
+        } else if(pizzaName.contains("bbq") && pizzaStyle.contains("chicago style ")){
             return (R.drawable.bbq_chicken_chicago_style);
-        }else if(pizzaName.contains("bbq") && pizzaStyle.contains("ny style ")){
+        } else if(pizzaName.contains("bbq") && pizzaStyle.contains("ny style ")){
             return (R.drawable.bbq_chicken_ny_style);
-        }else if(pizzaName.contains("meatzza") && pizzaStyle.contains("chicago style ")){
+        } else if(pizzaName.contains("meatzza") && pizzaStyle.contains("chicago style ")){
             return (R.drawable.meatzza_chicago_style);
-        }else if(pizzaName.contains("meatzza") && pizzaStyle.contains("ny style ")){
+        } else if(pizzaName.contains("meatzza") && pizzaStyle.contains("ny style")){
             return (R.drawable.meatzza_ny_style);
-        }else if(pizzaName.contains("build your own") && pizzaStyle.contains("chicago style ")){
+        } else if(pizzaName.contains("build your own") && pizzaStyle.contains("chicago style")){
             return (R.drawable.build_your_own_chicago_style);
-        }else if(pizzaName.contains("build your own") && pizzaStyle.contains("ny style ")){
+        } else if(pizzaName.contains("build your own") && pizzaStyle.contains("ny style")){
             return (R.drawable.build_your_own_ny_style);
         } else {
             return (R.drawable.ic_launcher_background);
         }
+    }
+
+    static class ViewHolder {
+        TextView pizzaName;
+        TextView pizzaStyle;
+        TextView pizzaCrust;
+        ImageView pizzaImage;
     }
 }
