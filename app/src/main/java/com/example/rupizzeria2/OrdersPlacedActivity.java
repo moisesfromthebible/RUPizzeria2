@@ -82,7 +82,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
                 Order selectedOrder = (Order) spinner.getSelectedItem();
                 updateListView(selectedOrder);
                 TextView price = findViewById(R.id.price);
-                double subtotal = getSubtotal(selectedOrder);
+                double subtotal = selectedOrder.getSubtotal();
                 price.setText(String.format("$%.2f", subtotal * 1.06625));
             }
 
@@ -141,17 +141,4 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         ordersListView.setAdapter(pizzaAdapter);
     }
 
-
-    /**
-     * Calculates the subtotal of the current order by summing the prices of all pizzas.
-     *
-     * @return The total price of all pizzas in the order before tax.
-     */
-    private double getSubtotal(Order currentOrder){
-        double subtotal = 0;
-        for (Pizza pizza : currentOrder.getPizzas()){
-            subtotal += pizza.price();
-        }
-        return subtotal;
-    }
 }
