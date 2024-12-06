@@ -69,6 +69,6 @@ public class BBQChicken extends Pizza{
      *
      * @return String name of Pizza
      */
-    public String getName() { return "BBQChicken"; }
+    public String getName() { return "BBQ Chicken"; }
 
 }

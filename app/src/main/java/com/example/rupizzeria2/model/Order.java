@@ -11,8 +11,14 @@ public class Order {
 
     /** List of pizzas in the order */
     private ArrayList<Pizza> pizzas;
+    /** Order number */
     private int orderNumber;
 
+    /**
+     * Order constructor.
+     *
+     * @param orderNumber Unique order number
+     */
     public Order(int orderNumber) {
         this.pizzas = new ArrayList<>();
         this.orderNumber = orderNumber;
@@ -52,8 +58,18 @@ public class Order {
         pizzas.clear();
     }
 
+    /**
+     * Getter for number
+     *
+     * @return int number
+     */
     public int returnNumber(){return orderNumber;}
 
+    /**
+     * toString() method for order
+     *
+     * @return String representation for order
+     */
     @NonNull
     @Override
     public String toString(){

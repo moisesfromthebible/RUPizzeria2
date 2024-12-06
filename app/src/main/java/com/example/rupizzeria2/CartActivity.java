@@ -11,11 +11,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.rupizzeria2.model.*;
 
+/**
+ * Cart activity controller
+ *
+ * @author Moises Cespedes Moreno, Binoy Patel
+ */
 public class CartActivity extends AppCompatActivity {
 
+    /** Current order in cart */
     private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
 
 
+    /**
+     * onCreate method for cartActivity
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +65,9 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Loads list view.
+     */
     private void loadListView(){
         ListView pizzaListView = findViewById(R.id.pizzaListView);
 
@@ -63,6 +80,9 @@ public class CartActivity extends AppCompatActivity {
         pizzaListView.setAdapter(toppingsAdapter);
     }
 
+    /**
+     * Sets prices in text views
+     */
     private void setPrices(){
         TextView subtotalText = findViewById(R.id.subtotal);
         TextView salesTaxText = findViewById(R.id.salesTax);

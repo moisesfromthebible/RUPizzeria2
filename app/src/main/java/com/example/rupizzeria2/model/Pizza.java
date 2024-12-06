@@ -102,10 +102,9 @@ public abstract class Pizza {
      */
     @Override
     public String toString(){
-        return String.format("%s: [%s] [%s] [%s] Price: $%.2f",
+        return String.format("%s: [%s] [%s] Price: $%.2f",
                 this.getClass().getSimpleName(),
                 this.getSize(),
-                this.getCrust(),
                 getToppingsString(),
                 this.price());
     }

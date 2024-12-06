@@ -11,6 +11,7 @@
         android:layout_height="53dp"
         android:layout_marginStart="140dp"
         android:layout_marginBottom="36dp"
+        android:backgroundTint="@color/red"
         android:text="Cancel Order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -19,6 +20,7 @@
         android:id="@+id/goHome3"
         android:layout_width="87dp"
         android:layout_height="37dp"
+        android:backgroundTint="@color/red"
         android:text="Home"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

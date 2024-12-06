@@ -10,13 +10,19 @@ public class OrderManager {
 
     /** List of all orders */
     private final ArrayList<Order> orders;
+
     /** Singleton instance of OrderManager */
     private static OrderManager instance;
 
+    /** Current order number */
     private static int currentOrder = 0;
 
+    /** Size of list */
     private static int size = 0;
 
+    /**
+     * Private constructor for orderManager
+     */
     private OrderManager() {
         this.orders = new ArrayList<>();
     }

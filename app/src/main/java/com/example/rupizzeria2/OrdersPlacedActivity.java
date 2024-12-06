@@ -19,12 +19,28 @@ import com.example.rupizzeria2.model.Pizza;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * OrdersPlacedActivity controller
+ *
+ * @author Moises Cespedes Moreno, Binoy Patel
+ */
 public class OrdersPlacedActivity extends AppCompatActivity {
 
+    /** Spinner for orders */
     private Spinner spinner;
+    /** List of pizzas */
     private ListView ordersListView;
+    /** OrderManager */
     private final OrderManager orderManager = OrderManager.getInstance();
 
+    /**
+     * OnCreate method
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +53,9 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         createButtonIntents();
     }
 
+    /**
+     * Creates spinner
+     */
     private void createSpinner() {
         List<Order> orders = orderManager.getOrders();
 
@@ -73,6 +92,9 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates button intents
+     */
     private void createButtonIntents() {
         Button cancelOrder2 = findViewById(R.id.cancelOrder2);
         Button goHome3 = findViewById(R.id.goHome3);
@@ -91,6 +113,11 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the listview of pizzas
+     *
+     * @param selectedOrder Order selected in spinner
+     */
     private void updateListView(Order selectedOrder) {
         List<Pizza> pizzas = new ArrayList<>();
         if (selectedOrder != null) {
