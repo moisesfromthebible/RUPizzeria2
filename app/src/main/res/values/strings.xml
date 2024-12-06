@@ -20,6 +20,7 @@
     <string name="sales_tax">Sales Tax</string>
     <string name="order_total">Order Total</string>
     <string name="cancel_order">Cancel Order</string>
+    <string name="remove_pizza">Remove Pizza</string>
     <string name="place_order">Place Order</string>
     <string name="order_placed_tax">Order Total (with tax)</string>
     <string name="rupizzeria">RU Pizzeria</string>

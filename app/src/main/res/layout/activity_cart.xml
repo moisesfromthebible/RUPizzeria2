@@ -62,28 +62,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/cancelOrder"
-        android:layout_width="131dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/cancel_order"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/placeOrder"
-        android:layout_width="123dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="256dp"
-        android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/place_order"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <ListView
         android:id="@+id/pizzaListView"
         android:layout_width="377dp"
@@ -96,5 +74,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    <Button
+        android:id="@+id/cancelOrder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight ="1"
+        android:padding="8dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/cancel_order" />
+
+    <Button
+        android:id="@+id/removePizza"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/remove_pizza"/>
+
+    <Button
+        android:id="@+id/placeOrder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/place_order" />
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
