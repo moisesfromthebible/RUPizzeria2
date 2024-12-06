@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,6 +48,7 @@ public class CartActivity extends AppCompatActivity {
         Button goHome = findViewById(R.id.goHome2);
         Button cancelOrder = findViewById(R.id.cancelOrder);
         Button placeOrder = findViewById(R.id.placeOrder);
+        Button removePizza = findViewById(R.id.removePizza);
 
         goHome.setOnClickListener(v -> {
             Intent intent = new Intent(CartActivity.this, MainActivity.class);
@@ -59,8 +61,21 @@ public class CartActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        placeOrder.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+        placeOrder.setOnClickListener(v -> placeOrderFunction());
+
+        removePizza.setOnClickListener(v -> removePizzaFunction());
+    }
+
+    private void placeOrderFunction(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+
+        if (currentOrder.getPizzas().isEmpty()) {
+            builder.setTitle("Error")
+                    .setMessage("Your cart is empty. Please add pizzas to place an order.")
+                    .setPositiveButton("OK", null)
+                    .setCancelable(true)
+                    .show();
+        } else {
             builder.setTitle("Success")
                     .setMessage("Your order has been placed successfully.")
                     .setPositiveButton("OK", (dialog, which) -> {
@@ -70,7 +85,23 @@ public class CartActivity extends AppCompatActivity {
                     })
                     .setCancelable(false)
                     .show();
-        });
+        }
+    }
+
+    private void removePizzaFunction(){
+        ListView pizzaListView = findViewById(R.id.pizzaListView);
+        int selectedPosition = pizzaListView.getCheckedItemPosition();
+
+        if (currentOrder.getPizzas().isEmpty()) {
+            Toast.makeText(this, "The cart is empty. Nothing to remove.", Toast.LENGTH_SHORT).show();
+        } else if (selectedPosition < 0) {
+            Toast.makeText(this, "Please select a pizza to remove.", Toast.LENGTH_SHORT).show();
+        } else {
+            currentOrder.getPizzas().remove(selectedPosition);
+            ((ArrayAdapter<?>) pizzaListView.getAdapter()).notifyDataSetChanged();
+            setPrices();
+            Toast.makeText(this, "Pizza removed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -78,6 +109,8 @@ public class CartActivity extends AppCompatActivity {
      */
     private void loadListView(){
         ListView pizzaListView = findViewById(R.id.pizzaListView);
+
+        pizzaListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         ArrayAdapter<Pizza> toppingsAdapter = new ArrayAdapter<>(
                 this,
@@ -96,24 +129,11 @@ public class CartActivity extends AppCompatActivity {
         TextView salesTaxText = findViewById(R.id.salesTax);
         TextView orderTotalText = findViewById(R.id.orderTotal);
 
-        double subtotal = getSubtotal();
+        double subtotal = currentOrder.getSubtotal();
 
         subtotalText.setText(String.format("Subtotal $%.2f", subtotal));
-        salesTaxText.setText(String.format("Sales Tax $%.2f", subtotal * 0.0625));
-        orderTotalText.setText(String.format("Order total $%.2f", subtotal * 1.0625));
-    }
-
-    /**
-     * Calculates the subtotal of the current order by summing the prices of all pizzas.
-     *
-     * @return The total price of all pizzas in the order before tax.
-     */
-    private double getSubtotal(){
-        double subtotal = 0;
-        for (Pizza pizza : currentOrder.getPizzas()){
-            subtotal += pizza.price();
-        }
-        return subtotal;
+        salesTaxText.setText(String.format("Sales Tax $%.2f", subtotal * 0.06625));
+        orderTotalText.setText(String.format("Order total $%.2f", subtotal * 1.06625));
     }
 
 }

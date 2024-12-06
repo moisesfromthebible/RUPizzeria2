@@ -59,13 +59,6 @@ public class Order {
     }
 
     /**
-     * Getter for number
-     *
-     * @return int number
-     */
-    public int returnNumber(){return orderNumber;}
-
-    /**
      * toString() method for order
      *
      * @return String representation for order
@@ -74,5 +67,18 @@ public class Order {
     @Override
     public String toString(){
         return String.format("Order Number: %d", orderNumber);
+    }
+
+    /**
+     * Returns subtotal of order
+     *
+     * @return Subtotal
+     */
+    public double getSubtotal(){
+        double subtotal = 0;
+        for (Pizza pizza : pizzas){
+            subtotal += pizza.price();
+        }
+        return subtotal;
     }
 }

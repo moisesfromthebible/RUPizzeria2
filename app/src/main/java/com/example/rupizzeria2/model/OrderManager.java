@@ -42,14 +42,11 @@ public class OrderManager {
 
     /**
      * Creates a new order and adds it to the list.
-     *
-     * @return The newly created order
      */
-    public Order createOrder() {
+    public void createOrder() {
         Order newOrder = new Order(currentOrder++);
         orders.add(newOrder);
         size++;
-        return newOrder;
     }
 
     /**
@@ -69,13 +66,6 @@ public class OrderManager {
      */
     public List<Order> getOrders() {
         return orders.subList(0, size-1);
-    }
-
-    /**
-     * Clears all orders from the manager.
-     */
-    public void clearAllOrders() {
-        orders.clear();
     }
 
     public Order getCurrOrder(){

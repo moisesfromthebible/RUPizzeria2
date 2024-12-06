@@ -41,8 +41,7 @@ public class PizzaOrderActivity extends AppCompatActivity {
     /** Size of pizza */
     private Size size;
 
-    /** Pizza adapter class
-     */
+    /** Pizza adapter class */
     private PizzaAdapter pizzaAdapter;
 
     /** List view for toppings */
@@ -54,7 +53,6 @@ public class PizzaOrderActivity extends AppCompatActivity {
      * @param savedInstanceState If the activity is being re-initialized after
      *     previously being shut down then this Bundle contains the data it most
      *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     *
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,11 +175,10 @@ public class PizzaOrderActivity extends AppCompatActivity {
             size = null;
 
             pizzaAdapter.clearSelection();
-
             toppingsListView.setAdapter(null);
 
             TextView priceTextView = findViewById(R.id.priceTextView);
-            priceTextView.setText("$0.00");
+            priceTextView.setText(getString(R.string.total_zero));
             Toast.makeText(PizzaOrderActivity.this, "Selection cleared!", Toast.LENGTH_SHORT).show();
         });
     }

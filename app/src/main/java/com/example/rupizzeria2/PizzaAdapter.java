@@ -140,18 +140,6 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         return selectedPosition != RecyclerView.NO_POSITION;
     }
 
-    /**
-     * Gets the selected item
-     *
-     * @return Selected item
-     */
-    public Pizza getSelectedItem() {
-        if (selectedPosition != RecyclerView.NO_POSITION) {
-            return pizzaList.get(selectedPosition);
-        }
-        return null;
-    }
-
     public interface OnPizzaSelectedListener {
         void onPizzaSelected(Pizza selectedPizza);
     }
