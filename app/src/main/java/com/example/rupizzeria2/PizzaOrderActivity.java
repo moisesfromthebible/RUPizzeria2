@@ -164,35 +164,52 @@ public class PizzaOrderActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        addToCart.setOnClickListener(v -> {
-            if (validateOptions()) {
-                pizza.setSize(size);
-                Order newOrder = OrderManager.getInstance().getCurrOrder();
-                newOrder.addPizza(pizza);
+        addToCart.setOnClickListener(v -> addToCartFunction());
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(PizzaOrderActivity.this);
-                builder.setTitle("Success")
-                        .setMessage("Pizza added to cart.")
-                        .setPositiveButton("OK", (dialog, which) -> {
-                            Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
-                            startActivity(intent);
-                        })
-                        .setCancelable(false)
-                        .show();
-            }
-        });
+        clear.setOnClickListener(v -> clearButtonFunction());
+    }
 
-        clear.setOnClickListener(v -> {
-            sizeGroup.clearCheck();
-            size = null;
+    /**
+     * Add to cart function
+     */
+    private void addToCartFunction(){
+        if (validateOptions()) {
+            pizza.setSize(size);
+            Order newOrder = OrderManager.getInstance().getCurrOrder();
+            newOrder.addPizza(pizza);
 
-            pizzaAdapter.clearSelection();
-            toppingsListView.setAdapter(null);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PizzaOrderActivity.this);
+            builder.setTitle("Success")
+                    .setMessage("Pizza added to cart.")
+                    .setPositiveButton("OK", (dialog, which) -> {
+                        Intent intent = new Intent(PizzaOrderActivity.this, CartActivity.class);
+                        startActivity(intent);
+                    })
+                    .setCancelable(false)
+                    .show();
+        }
+    }
 
-            TextView priceTextView = findViewById(R.id.priceTextView);
-            priceTextView.setText(getString(R.string.total_zero));
-            Toast.makeText(PizzaOrderActivity.this, "Selection cleared!", Toast.LENGTH_SHORT).show();
-        });
+    /**
+     * Clear button function
+     */
+    private void clearButtonFunction() {
+        sizeGroup.clearCheck();
+        size = null;
+
+        if (pizza instanceof BuildYourOwn) {
+            pizza.clearToppings();
+        }
+
+        pizzaAdapter.clearSelection();
+
+        toppingsListView.clearChoices();
+        toppingsListView.setAdapter(null);
+
+        TextView priceTextView = findViewById(R.id.priceTextView);
+        priceTextView.setText(getString(R.string.total_zero));
+
+        Toast.makeText(PizzaOrderActivity.this, "Selection cleared!", Toast.LENGTH_SHORT).show();
     }
 
     /**

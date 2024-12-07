@@ -127,4 +127,11 @@ public abstract class Pizza {
         return toppingsString.substring(0, toppingsString.length() - 2);
     }
 
+    /**
+     * Clears the toppings
+     */
+    public void clearToppings(){
+        if (this instanceof BuildYourOwn) toppings = new ArrayList<>();
+    }
+
 }
