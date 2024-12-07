@@ -68,6 +68,11 @@ public class OrderManager {
         return orders.subList(0, size-1);
     }
 
+    /**
+     * Retrieves current order
+     *
+     * @return most recent order
+     */
     public Order getCurrOrder(){
         return orders.get(size-1);
     }
