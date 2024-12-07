@@ -140,15 +140,29 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         return selectedPosition != RecyclerView.NO_POSITION;
     }
 
+    /**
+     * Listening interface for handling pizza selection events
+     */
     public interface OnPizzaSelectedListener {
         void onPizzaSelected(Pizza selectedPizza);
     }
+
+    /**
+     * Selected pizza listener
+     */
     private OnPizzaSelectedListener listener;
 
+    /**
+     * Sets listener to handle pizza selection events in recyclerview
+     * @param listener
+     */
     public void setOnPizzaSelectedListener(OnPizzaSelectedListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * Clears current selection
+     */
     public void clearSelection() {
         selectedPosition = -1;
         notifyDataSetChanged();

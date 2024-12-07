@@ -95,6 +95,9 @@ public class PizzaOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Displays toppings for selected pizza in the ListView
+     */
     private void displayToppings() {
         if (pizza instanceof BuildYourOwn) {
             updatePrice();
@@ -126,6 +129,12 @@ public class PizzaOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles topping selection for Build Your Own Pizzas
+     * Max 7 toppings
+     * @param allToppings List of all toppings
+     * @param position Position of selected topping
+     */
     private void listViewListener(List<Topping> allToppings, int position){
         Topping selectedTopping = allToppings.get(position);
 

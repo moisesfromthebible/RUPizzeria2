@@ -23,6 +23,7 @@ public class CartActivity extends AppCompatActivity {
     /** Current order in cart */
     private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
 
+    /** Order number */
     private static int orderNumber = 1;
 
     /**
@@ -69,6 +70,11 @@ public class CartActivity extends AppCompatActivity {
         removePizza.setOnClickListener(v -> removePizzaFunction());
     }
 
+    /**
+     * Handles placing an order
+     * displays error/success, increments order #
+     *
+     */
     private void placeOrderFunction(){
         AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
 
@@ -92,6 +98,9 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles functionality of removing pizza from cart
+     */
     private void removePizzaFunction(){
         ListView pizzaListView = findViewById(R.id.pizzaListView);
         int selectedPosition = pizzaListView.getCheckedItemPosition();

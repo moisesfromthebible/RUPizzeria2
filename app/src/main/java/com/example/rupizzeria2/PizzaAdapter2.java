@@ -16,21 +16,40 @@ import com.example.rupizzeria2.model.Pizza;
 import java.util.List;
 
 public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
+    /** Context for accessing resources and views */
     private final Context context;
+    /** List of pizzas to display*/
     private final List<Pizza> pizzaList;
+    /** Position of selected pizza */
     private int selectedPosition = -1;
 
+    /**
+     * Constructor
+     * @param context
+     * @param pizzaList
+     */
     public PizzaAdapter2(Context context, List<Pizza> pizzaList) {
         super(context, R.layout.pizza_item_layout, pizzaList);
         this.context = context;
         this.pizzaList = pizzaList;
     }
 
+    /**
+     * Sets position of selected pizza and refreshes ListView
+     * @param position
+     */
     public void setSelectedPosition(int position) {
         selectedPosition = position;
         notifyDataSetChanged(); // Refresh the ListView when the selected position changes
     }
 
+    /**
+     * Generate the view for each pizza item in ListView
+     * @param position Position of item
+     * @param convertView Old view to reuse
+     * @param parent Parent view
+     * @return View corresponding to item at position
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
@@ -68,6 +87,12 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
         return convertView;
     }
 
+    /**
+     * Retrieve image ID based on pizza name and style
+     * @param pizzaName Name of Pizza
+     * @param pizzaStyle Style of Pizza
+     * @return Resource ID of image
+     */
     private int getImageResId(String pizzaName, String pizzaStyle){
         if(pizzaName.contains("deluxe") && pizzaStyle.contains("chicago style")){
             return (R.drawable.deluxe_chicago_style);
@@ -90,10 +115,17 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
         }
     }
 
+    /**
+     * Holds references to views
+     */
     static class ViewHolder {
+        /** TextView for pizza name*/
         TextView pizzaName;
+        /** TextView for pizza style*/
         TextView pizzaStyle;
+        /** TextView for pizza crust*/
         TextView pizzaCrust;
+        /** ImageView for pizza image*/
         ImageView pizzaImage;
     }
 }
