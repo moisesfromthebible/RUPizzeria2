@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Class to represent and manage orders (Singleton pattern).
+ *
+ * @author Moises Cespedes Manuel, Binoy Patel
  */
 public class OrderManager {
 

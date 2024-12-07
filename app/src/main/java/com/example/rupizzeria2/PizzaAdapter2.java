@@ -15,6 +15,11 @@ import com.example.rupizzeria2.model.Pizza;
 
 import java.util.List;
 
+/**
+ * Pizza Adapter for Pizzas
+ *
+ * @author Moises Cespedes Manuel, Binoy Patel
+ */
 public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
     /** Context for accessing resources and views */
     private final Context context;

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 /**
  * Nested class to represent an individual order.
+ *
+ * @author Moises Cespedes Moreno, Binoy Patel
  */
 public class Order {
 
