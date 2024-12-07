@@ -18,11 +18,19 @@ import com.example.rupizzeria2.model.*;
  * @author Moises Cespedes Moreno, Binoy Patel
  */
 public class CartActivity extends AppCompatActivity {
-
+    /** Current order in cart*/
     private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
+    /** Order number*/
     private static int orderNumber = 1;
+    /**Adapter for pizzas in ListView*/
     private PizzaAdapter2 pizzaAdapter;
 
+    /**
+     * Create activity
+     * Set up view
+     * @param savedInstanceState
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +44,9 @@ public class CartActivity extends AppCompatActivity {
         setPrices();
     }
 
+    /**
+     * Initializes various button intents
+     */
     private void createButtonIntents() {
         Button goHome = findViewById(R.id.goHome2);
         Button cancelOrder = findViewById(R.id.cancelOrder);
@@ -57,6 +68,9 @@ public class CartActivity extends AppCompatActivity {
         removePizza.setOnClickListener(v -> removePizzaFunction());
     }
 
+    /**
+     * Places current order
+     */
     private void placeOrderFunction() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
 
@@ -80,6 +94,9 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Removes selected pizza from cart
+     */
     private void removePizzaFunction() {
         ListView pizzaListView = findViewById(R.id.pizzaListView);
         int selectedPosition = pizzaListView.getCheckedItemPosition();
@@ -96,6 +113,9 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Loads ListView with pizzas from current order.
+     */
     private void loadListView() {
         ListView pizzaListView = findViewById(R.id.pizzaListView);
         pizzaAdapter = new PizzaAdapter2(this, currentOrder.getPizzas());
@@ -108,6 +128,9 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets pizza prices for subtotal, sales tax, and total of order.
+     */
     private void setPrices() {
         TextView subtotalText = findViewById(R.id.subtotal);
         TextView salesTaxText = findViewById(R.id.salesTax);
