@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,7 +75,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
             spinner.setAdapter(null);
             updateListView(null);
             TextView price = findViewById(R.id.price);
-            price.setText(getString(R.string.total_zero));
+            price.setText("Order total: " + getString(R.string.total_zero));
             return;
         }
 
@@ -93,7 +94,7 @@ public class OrdersPlacedActivity extends AppCompatActivity {
                 updateListView(selectedOrder);
                 TextView price = findViewById(R.id.price);
                 double subtotal = selectedOrder.getSubtotal();
-                price.setText(String.format("$%.2f", subtotal * 1.06625));
+                price.setText(String.format("Order total: $%.2f", subtotal * 1.06625));
             }
 
             @Override
@@ -111,6 +112,11 @@ public class OrdersPlacedActivity extends AppCompatActivity {
         Button goHome3 = findViewById(R.id.goHome3);
 
         cancelOrder2.setOnClickListener(v -> {
+            if (orderManager.getOrders().isEmpty()) {
+                Toast.makeText(this, "No orders to cancel", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             AlertDialog.Builder builder = new AlertDialog.Builder(OrdersPlacedActivity.this);
             builder.setTitle("Confirm Cancellation")
                     .setMessage("Are you sure you want to cancel this order?")

@@ -23,7 +23,7 @@
     <string name="cancel_order">Cancel Order</string>
     <string name="remove_pizza">Remove Pizza</string>
     <string name="place_order">Place Order</string>
-    <string name="order_placed_tax">Order Total (with tax)</string>
+    <string name="order_placed_tax">Order Total</string>
     <string name="rupizzeria">RU Pizzeria</string>
     <string name="toppings">Toppings</string>
     <string name="total">Total:</string>
