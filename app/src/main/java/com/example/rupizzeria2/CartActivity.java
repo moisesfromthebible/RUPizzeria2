@@ -28,7 +28,7 @@ public class CartActivity extends AppCompatActivity {
     /**
      * Create activity
      * Set up view
-     * @param savedInstanceState
+     * @param savedInstanceState State
      *
      */
     @Override
