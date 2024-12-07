@@ -27,12 +27,14 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="213dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="254dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="36dp"
         android:text="@string/orders_placed"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.598"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -60,7 +62,7 @@
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="4dp"
         android:ems="10"
         android:inputType="text"
