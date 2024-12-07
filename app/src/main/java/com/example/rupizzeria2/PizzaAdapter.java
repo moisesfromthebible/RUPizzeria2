@@ -154,7 +154,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
     /**
      * Sets listener to handle pizza selection events in recyclerview
-     * @param listener
+     * @param listener Listener
      */
     public void setOnPizzaSelectedListener(OnPizzaSelectedListener listener) {
         this.listener = listener;
