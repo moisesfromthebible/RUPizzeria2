@@ -63,7 +63,7 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
         pizzaImage.setImageResource(getImageResId(pizza.getName().toLowerCase(), pizza.getStyle().toLowerCase()));
 
         TextView pizzaName = convertView.findViewById(R.id.pizzaName);
-        pizzaName.setText(pizza.getName());
+        pizzaName.setText(pizza.getSize().toString() + " " + pizza.getName());
 
         TextView pizzaStyle = convertView.findViewById(R.id.pizzaStyle2);
         pizzaStyle.setText(pizza.getStyle());
