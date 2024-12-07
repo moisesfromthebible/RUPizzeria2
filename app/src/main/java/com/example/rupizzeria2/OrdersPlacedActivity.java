@@ -33,6 +33,8 @@ public class OrdersPlacedActivity extends AppCompatActivity {
     private ListView ordersListView;
     /** OrderManager */
     private final OrderManager orderManager = OrderManager.getInstance();
+    /** PizzaAdapter2 for managing pizza list */
+    private PizzaAdapter2 pizzaAdapter;
 
     /**
      * OnCreate method
@@ -52,6 +54,14 @@ public class OrdersPlacedActivity extends AppCompatActivity {
 
         createSpinner();
         createButtonIntents();
+
+        ordersListView.setOnItemClickListener((parent, view, position, id) -> {
+
+            if (pizzaAdapter != null) {
+                pizzaAdapter.setSelectedPosition(position);
+                pizzaAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     /**
@@ -133,9 +143,9 @@ public class OrdersPlacedActivity extends AppCompatActivity {
             pizzas = selectedOrder.getPizzas();
         }
 
-        PizzaAdapter2 pizzaAdapter = new PizzaAdapter2(this, pizzas);
-
+        pizzaAdapter = new PizzaAdapter2(this, pizzas);
         ordersListView.setAdapter(pizzaAdapter);
     }
 
 }
+

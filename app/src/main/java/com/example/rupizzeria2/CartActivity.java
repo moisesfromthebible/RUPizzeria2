@@ -2,7 +2,6 @@ package com.example.rupizzeria2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,35 +19,24 @@ import com.example.rupizzeria2.model.*;
  */
 public class CartActivity extends AppCompatActivity {
 
-    /** Current order in cart */
     private final Order currentOrder = OrderManager.getInstance().getCurrOrder();
-
-    /** Order number */
     private static int orderNumber = 1;
+    private PizzaAdapter2 pizzaAdapter;
 
-    /**
-     * onCreate method for cartActivity
-     *
-     * @param savedInstanceState If the activity is being re-initialized after
-     *     previously being shut down then this Bundle contains the data it most
-     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
-     *
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+
         TextView orderNumberText = findViewById(R.id.orderNumberText);
         orderNumberText.setText("Order #: " + orderNumber);
+
         createButtonIntents();
         loadListView();
         setPrices();
     }
 
-    /**
-     * Creates the button intents
-     */
-    private void createButtonIntents(){
+    private void createButtonIntents() {
         Button goHome = findViewById(R.id.goHome2);
         Button cancelOrder = findViewById(R.id.cancelOrder);
         Button placeOrder = findViewById(R.id.placeOrder);
@@ -66,16 +54,10 @@ public class CartActivity extends AppCompatActivity {
         });
 
         placeOrder.setOnClickListener(v -> placeOrderFunction());
-
         removePizza.setOnClickListener(v -> removePizzaFunction());
     }
 
-    /**
-     * Handles placing an order
-     * displays error/success, increments order #
-     *
-     */
-    private void placeOrderFunction(){
+    private void placeOrderFunction() {
         AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
 
         if (currentOrder.getPizzas().isEmpty()) {
@@ -98,10 +80,7 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Handles functionality of removing pizza from cart
-     */
-    private void removePizzaFunction(){
+    private void removePizzaFunction() {
         ListView pizzaListView = findViewById(R.id.pizzaListView);
         int selectedPosition = pizzaListView.getCheckedItemPosition();
 
@@ -111,26 +90,25 @@ public class CartActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select a pizza to remove.", Toast.LENGTH_SHORT).show();
         } else {
             currentOrder.getPizzas().remove(selectedPosition);
-            ((ArrayAdapter<?>) pizzaListView.getAdapter()).notifyDataSetChanged();
+            pizzaAdapter.notifyDataSetChanged();
             setPrices();
             Toast.makeText(this, "Pizza removed.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    /**
-     * Loads list view.
-     */
-    private void loadListView(){
+    private void loadListView() {
         ListView pizzaListView = findViewById(R.id.pizzaListView);
-        PizzaAdapter2 pizzaAdapter = new PizzaAdapter2(this, currentOrder.getPizzas());
+        pizzaAdapter = new PizzaAdapter2(this, currentOrder.getPizzas());
         pizzaListView.setAdapter(pizzaAdapter);
         pizzaListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        pizzaListView.setOnItemClickListener((parent, view, position, id) -> {
+            pizzaAdapter.setSelectedPosition(position);
+            pizzaAdapter.notifyDataSetChanged();
+        });
     }
 
-    /**
-     * Sets prices in text views
-     */
-    private void setPrices(){
+    private void setPrices() {
         TextView subtotalText = findViewById(R.id.subtotal);
         TextView salesTaxText = findViewById(R.id.salesTax);
         TextView orderTotalText = findViewById(R.id.orderTotal);
@@ -141,5 +119,4 @@ public class CartActivity extends AppCompatActivity {
         salesTaxText.setText(String.format("Sales Tax $%.2f", subtotal * 0.06625));
         orderTotalText.setText(String.format("Order total $%.2f", subtotal * 1.06625));
     }
-
 }

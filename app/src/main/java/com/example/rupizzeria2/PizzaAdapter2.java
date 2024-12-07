@@ -40,7 +40,7 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
      */
     public void setSelectedPosition(int position) {
         selectedPosition = position;
-        notifyDataSetChanged(); // Refresh the ListView when the selected position changes
+        notifyDataSetChanged();
     }
 
     /**
@@ -77,9 +77,8 @@ public class PizzaAdapter2 extends ArrayAdapter<Pizza> {
         TextView pizzaToppings = convertView.findViewById(R.id.pizzaToppings);
         pizzaToppings.setText(TextUtils.join(", ", pizza.getToppings()));
 
-        // Highlight selected item by changing its background color
         if (position == selectedPosition) {
-            convertView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_item_color)); // Define your color in resources
+            convertView.setBackgroundColor(ContextCompat.getColor(context, R.color.selected_item_color));
         } else {
             convertView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.transparent));
         }
